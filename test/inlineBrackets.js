@@ -111,11 +111,12 @@ test.skip('doesnt work', function (t) {
     )
 
     t.deepEqual(
-        subarg('beep -t [ boop -o a.txt -u [be[ep] ]'.split(/\s+/)),
+        subarg('beep -t [ boop -o a.txt -u [ be[ep]] ]'.split(/\s+/)),
         {
-            /*
+            /* Same as above - note the context-closing bracket is right next to an inline closing bracket
+             * If you add a space, it works
              *  expected:
-             *    { _: [ 'beep' ], t: { _: [ 'boop' ], o: 'a.txt', u: { _: [ 'beep' ] } } }
+             *    { _: [ 'beep' ], t: { _: [ 'boop' ], o: 'a.txt', u: { _: [ 'be[ep]' ] } } }
              *  actual:
              *    { _: [ 'beep' ], t: true }
             */
@@ -124,7 +125,7 @@ test.skip('doesnt work', function (t) {
                 _: [ 'boop' ],
                 o: 'a.txt',
                 u: {
-                    _: [ 'beep' ]
+                    _: [ 'be[ep]' ]
                 }
             }
         }
