@@ -2,7 +2,15 @@ var subarg = require('..');
 var test = require('tape');
 
 test('inline brackets', function (t) {
-    t.plan(6);
+    t.plan(7);
+
+    t.deepEqual(
+        subarg('http://localhost\?q=\[1\]'.split(/\s+/)),
+        {
+            _: [ 'http://localhost?q=[1]' ]
+        }
+    )
+
     t.deepEqual(
         subarg('beep -t [ boop -o a.txt -u http://localhost -u http://localhost\?q=\[1\] -q]'.split(/\s+/)),
         {
